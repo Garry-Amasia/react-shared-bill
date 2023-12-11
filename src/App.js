@@ -43,7 +43,19 @@ export const App = () => {
     setShowFormAddFriend(false);
   };
 
-  console.log(selectedFriend);
+  const handleSplitBill = (value) => {
+    console.log(value);
+    setFriends((current) =>
+      current.map((singleFriend) =>
+        singleFriend.id === selectedFriend.id
+          ? { ...singleFriend, balance: singleFriend.balance + value }
+          : singleFriend
+      )
+    );
+    setSelectedFriend(null);
+  };
+
+  // console.log(selectedFriend);
 
   return (
     <div className="app">
@@ -61,7 +73,12 @@ export const App = () => {
         </Button>
       </div>
 
-      {selectedFriend && <FormSplitBill selectedFriend={selectedFriend} />}
+      {selectedFriend && (
+        <FormSplitBill
+          selectedFriend={selectedFriend}
+          onSplitBill={handleSplitBill}
+        />
+      )}
     </div>
   );
 };
